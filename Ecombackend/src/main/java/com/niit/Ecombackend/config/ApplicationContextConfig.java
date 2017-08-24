@@ -14,22 +14,28 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.Ecombackend.Dao.BillingaddressDAO;
 import com.niit.Ecombackend.Dao.CartDAO;
 import com.niit.Ecombackend.Dao.CategoryDAO;
 import com.niit.Ecombackend.Dao.ProductDAO;
 import com.niit.Ecombackend.Dao.RoleDAO;
+import com.niit.Ecombackend.Dao.ShippingaddressDAO;
 import com.niit.Ecombackend.Dao.SupplierDAO;
 import com.niit.Ecombackend.Dao.UserDAO;
+import com.niit.Ecombackend.Daoimpl.BillingaddressDAOImpl;
 import com.niit.Ecombackend.Daoimpl.CartDAOImpl;
 import com.niit.Ecombackend.Daoimpl.CategoryDAOImpl;
 import com.niit.Ecombackend.Daoimpl.ProductDAOImpl;
 import com.niit.Ecombackend.Daoimpl.RoleDAOImpl;
+import com.niit.Ecombackend.Daoimpl.ShippingaddressDAOImpl;
 import com.niit.Ecombackend.Daoimpl.SupplierDAOImpl;
 import com.niit.Ecombackend.Daoimpl.UserDAOImpl;
+import com.niit.Ecombackend.Model.Billingaddress;
 import com.niit.Ecombackend.Model.Cart;
 import com.niit.Ecombackend.Model.Category;
 import com.niit.Ecombackend.Model.Product;
 import com.niit.Ecombackend.Model.Role;
+import com.niit.Ecombackend.Model.Shippingaddress;
 import com.niit.Ecombackend.Model.Supplier;
 import com.niit.Ecombackend.Model.User;
 
@@ -74,6 +80,8 @@ public class ApplicationContextConfig {
 		sessionBuilder.addAnnotatedClass(Supplier.class);
 		sessionBuilder.addAnnotatedClass(Cart.class);
 		sessionBuilder.addAnnotatedClass(Role.class);
+		sessionBuilder.addAnnotatedClass(Billingaddress.class);
+		sessionBuilder.addAnnotatedClass(Shippingaddress.class);
 		return sessionBuilder.buildSessionFactory();
 	}
 	@Autowired
@@ -115,6 +123,16 @@ public class ApplicationContextConfig {
 	@Bean(name = "RoleDAO")
 	public RoleDAO getRoleDAO(SessionFactory sessionFactory) {
 		return new RoleDAOImpl(sessionFactory);
+	}
+	@Autowired(required = true)
+	@Bean(name = "ShippingaddressDAO")
+	public ShippingaddressDAO getShippingaddressDAO(SessionFactory sessionFactory) {
+		return new ShippingaddressDAOImpl(sessionFactory);
+	}
+	@Autowired(required = true)
+	@Bean(name = "BillingaddressDAO")
+	public BillingaddressDAO getBillingaddressDAO(SessionFactory sessionFactory) {
+		return new BillingaddressDAOImpl(sessionFactory);
 	}
 	
 }

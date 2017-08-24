@@ -45,17 +45,19 @@ public class CartController {
 	 model.addAttribute("myCartClicked", true);
 	 model.addAttribute("GrandTotal", GrandTotal);
 		
-		return "UserLogin";
+		return "home";
 		
 		
 	}
+	
 	@RequestMapping("addtocart")
 	public String addCart(@RequestParam("productId") int productId, Principal p, Model model){
-		
+		System.out.println("Hi");
+
 		Product product = productDAO.getByProductId(productId);		
 		User user = userDAO.getByEmailId(p.getName());		
 		Cart crt = cartDAO.getByUserandProduct(p.getName(), productId);
-		
+		System.out.println(product.getProductName());
 		if(product.getStock() > 0 ){
 			
 			if(cartDAO.itemAlreadyExist(p.getName(), productId, true)){
@@ -93,7 +95,7 @@ public class CartController {
 			model.addAttribute("product", product);
 			model.addAttribute("productDescClicked", true);
 			model.addAttribute("message", "Out of stock");
-			return "UserLogin";
+			return "mycart";
 		}
 		
 		

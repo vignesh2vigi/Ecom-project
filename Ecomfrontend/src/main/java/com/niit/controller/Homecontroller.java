@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -83,19 +84,25 @@ public ModelAndView home(HttpSession session ) {
 		mv.addObject("isUserClickedRegister", "true");
 		return mv;
 	}
-	@RequestMapping("productDescription")
-	public ModelAndView ProductDescription() {
+	@RequestMapping("productDescription/{productid}")
+	public ModelAndView ProductDescription(@PathVariable int productid) {
 
 		ModelAndView mv = new ModelAndView("home");
+		Product product=productDAO.getByProductId(productid);
+		mv.addObject("product",product);
 		mv.addObject("isUserClickedMoredetails", "true");
 		return mv;
 	}
-	@RequestMapping("cart")
-	public ModelAndView Cart() {
+	
+	@RequestMapping("productDescription/addtocart/{productid}")
+	public ModelAndView AddtoCart(@PathVariable int productid) {
 
 		ModelAndView mv = new ModelAndView("home");
-		mv.addObject("isUserClickedCart", "true");
+		Product product=productDAO.getByProductId(productid);
+		mv.addObject("product",product);
+		mv.addObject("isUserClickedaddtocart", "true");
 		return mv;
+		
 	}
 
 	
