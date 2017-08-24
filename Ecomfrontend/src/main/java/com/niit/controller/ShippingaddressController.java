@@ -37,7 +37,7 @@ public class ShippingaddressController {
 	@RequestMapping("shippingaddressPage")
 	public ModelAndView newShippingaddress(){
 		
-		ModelAndView mv = new ModelAndView("UserLogin");
+		ModelAndView mv = new ModelAndView("shippingaddress");
 		mv.addObject("newShippingaddressClicked", "true");
 		return mv;
 	}
@@ -45,7 +45,7 @@ public class ShippingaddressController {
 	public String addShippingaddress(Principal p, @ModelAttribute Shippingaddress shippingaddress){
 		String email = p.getName();
 		User user = userDAO.getByEmailId(email);
-		shippingaddress.setUserId(user.getUserId());
+		shippingaddress.setUser(user);
 		shippingaddress.setEmailId(email);
 		shippingaddressDAO.saveOrUpdate(shippingaddress);
 		return "redirect:proceed";
@@ -58,7 +58,7 @@ public class ShippingaddressController {
 		List<Shippingaddress> shippingList = shippingaddressDAO.list(email);
 		model.addAttribute("shippingList", shippingList);
 		model.addAttribute("viewShippingAddressClicked", true);
-	 return "UserLogin";
+	 return "shippingaddressPage";
 	}
 	@RequestMapping("shippingAddress")
 	public String shippingAddress(@RequestParam("shippingId") int shippingId, Principal p, Model model){
@@ -99,7 +99,7 @@ public class ShippingaddressController {
 		User user = userDAO.getByEmailId(email);
 		
 		shippingaddress.setEmailId(email);
-		shippingaddress.setUserId(user.getUserId());
+		shippingaddress.setUser(user);
 		
 		shippingaddressDAO.saveOrUpdate(shippingaddress);
 		return "redirect:proceed";

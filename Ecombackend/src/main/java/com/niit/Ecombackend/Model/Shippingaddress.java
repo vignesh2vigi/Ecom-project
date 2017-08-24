@@ -3,6 +3,8 @@ package com.niit.Ecombackend.Model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +16,9 @@ public class Shippingaddress {
 	@Id
 	@GeneratedValue
 	private int shippingId;
-
-	private int userId;
+    @ManyToOne
+    @JoinColumn(name="userid")
+	private User user;
 	private String emailId;
 	private String userName;
 	private String contactNumber;
@@ -28,11 +31,12 @@ public class Shippingaddress {
 	public void setShippingId(int shippingId) {
 		this.shippingId = shippingId;
 	}
-	public int getUserId() {
-		return userId;
+	
+	public User getUser() {
+		return user;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public String getEmailId() {
 		return emailId;

@@ -1,10 +1,13 @@
 package com.niit.Ecombackend.Model;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -37,6 +40,9 @@ private boolean enabled;
 @OneToOne(cascade=CascadeType.ALL)
 @JoinColumn(name="UserId")
 private Role role;
+
+@OneToMany(cascade=CascadeType.ALL)
+private List<Shippingaddress> Shippingaddress;
 
 public Role getRole() {
 	return role;
@@ -108,6 +114,14 @@ public int getZipcode() {
 
 public void setZipcode(int zipcode) {
 	this.zipcode = zipcode;
+}
+
+public List<Shippingaddress> getShippingaddress() {
+	return Shippingaddress;
+}
+
+public void setShippingaddress(List<Shippingaddress> shippingaddress) {
+	Shippingaddress = shippingaddress;
 }
 
 
