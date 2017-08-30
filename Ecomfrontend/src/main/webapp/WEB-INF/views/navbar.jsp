@@ -8,6 +8,55 @@
 <head>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+   {
+  font-family: 'Lato', sans-serif;
+}
+[am-TopLogo] {
+    max-height: 70px;
+    max-width: 210px;
+    margin: 12px 11px;
+}
+[am-CallNow] {
+    font-weight: 200;
+    color: #333;
+    vertical-align: middle;
+    line-height: 35px;
+    font-size: 19px;
+    padding-right: 8px;
+}
+/*
+  Relevant styles below
+*/
+.topper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.navbar.navbar-inverse {
+  background-image: linear-gradient(#9f9f9f, #535353 3%, #1f1f1f 17%, #212121 49%, #191919 89%, #000000 100%);
+  border-top: 1px inset rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.navbar .navbar-nav > li > a {
+  color: #d1d1d1;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  text-shadow: 0px -1px black, 0px 1px rgba(255, 255, 255, 0.25);
+  line-height: 18px;
+}
+
+.navbar .navbar-nav > li.active {
+  color: #f8f8f8;
+  background-color: #080808;
+  box-shadow: inset 0px -28px 23px -21px rgba(255, 255, 255, 0.15);
+  border-left: 1px solid #2A2A2A;
+  border-right: 1px solid #272727;
+}</style>
   </head>
 <body>
 <c:url value="/admin/product" var="produrl"/>
@@ -21,14 +70,15 @@
     </div>
     <ul class="nav navbar-nav">
      <a class="navbar-brand" href="#">Carsale</a>
-      <li class="active"><a href="home">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">category type<span class="caret"></span></a>
+     <c:url value="/home" var="urlh"></c:url>
+      <li class="active"><a href="${urlh }">Home</a></li>
+      <!-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">category type<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="renault">Renault</a></li>
           <li><a href="#">MaruthiSuzuki</a></li>
           <li><a href="#">Tata</a></li>
         </ul>
-      </li>
+      </li> -->
        <security:authorize access="hasRole('ROLE_ADMIN')">
        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -40,12 +90,7 @@
      </ul>
      <ul class="nav navbar-nav navbar-right">
      
-    <!--  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">CART<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="cart">ADD</a></li>
-          <li><a href="viewcart">VIEW</a></li>
-        </ul>
-      </li> -->
+   
      <security:authorize access="hasRole('ROLE_ADMIN')">
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PRODUCT<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -65,27 +110,26 @@
     
       <c:if test="${pageContext.request.userPrincipal.name == null }">
       <li><a href="user"><span class="glyphicon glyphicon-user"></span>Register</a></li>
-      
-           <li><a href="loginpage">Login</a></li>
+      <c:url value="/loginpage" var="urllog"></c:url>
+           <li><a href="${urllog}">Login</a></li>
            </c:if>
-       
-        <c:if test="${pageContext.request.userPrincipal.name != null }">
-         <security:authorize access="hasRole('ROLE_USER')">
-        <li><a href="cart(0)">cart(0)</a></li>
-        </security:authorize>
         <c:url value="/j_spring_security_logout" var="logout"></c:url>
         
-          <li><a href="${logout}">Logout</a></li>
-         </c:if>
+        <c:if test="${pageContext.request.userPrincipal.name != null }">
+         <security:authorize access="hasRole('ROLE_USER')">
+         <c:url value="myCart" var="cart"></c:url>
+        <li><a href="${cart}">cart(${sessionScope.noOfItem})</a></li>
+         </security:authorize>
+        <li><a href="${logout}">Logout</a></li>
+        </c:if>
+       
+       
+          
+       
       </ul>
       
     </ul>
-    <!-- <!-- <form class="navbar-form navbar-left">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search">
-      </div>
-      <button type="submit" class="btn btn-default">Search</button>
-    </form> --> -->
+    
   </div>
 </nav> 
 </body>

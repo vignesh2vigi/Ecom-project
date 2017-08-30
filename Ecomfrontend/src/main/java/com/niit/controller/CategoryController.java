@@ -64,13 +64,6 @@ public class CategoryController {
 	} 
 }
 
-/*@RequestMapping("viewcategory")
-public String viewcategory(Model model) {
-	List<Category> categoryList = categoryDAO.list();
-	model.addAttribute("categoryList", categoryList);
-	model.addAttribute("isUserClickedViewCategory", true);
 
-	return "home";
-}*/
 
 

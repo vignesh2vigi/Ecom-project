@@ -22,7 +22,7 @@
         <security:form-login    login-page="/loginpage"
         	
         	login-processing-url="/isvaliduser"
-        	default-target-url="/afterlogin"
+        	default-target-url="/home"
         	authentication-failure-url="/loginpage?error"
             username-parameter="emailId"
             password-parameter="password" />

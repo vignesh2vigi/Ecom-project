@@ -56,7 +56,7 @@ private  SessionFactory sessionFactory;
 	}
 
 @Transactional
-	public Billingaddress getByContactNumber(int contactnumber) {
+	public Billingaddress getByContactNumber(String contactnumber) {
 	String hql = "from Billingaddress where ContactNumber ='" + contactnumber + "'";
 	Query query = (Query) sessionFactory.getCurrentSession().createQuery(hql);
 	@SuppressWarnings("unchecked")

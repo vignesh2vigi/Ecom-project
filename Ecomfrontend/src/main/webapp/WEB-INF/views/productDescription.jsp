@@ -21,7 +21,8 @@
 <body>
 
 <br><br> 
-<img src="resource/product/${product.productId}.jpg" alt="${product.productId}" width="250" height="350" align="left">
+<c:url value="/resource/product/${product.productId}.jpg" var="url"></c:url>
+<img src="${url}" alt="${product.productId}" width="250" height="350" align="left">
  
  
  <div class="right">
@@ -35,10 +36,14 @@
   <p><a href="loginPage"><button class="w3-button w3-pink">Add To Cart</button></a></p>
   </c:if>
     <c:if test="${pageContext.request.userPrincipal.name != null }">
-  <br><br><br><p><a href="addtocart?productId=${product.productId}"><button class="w3-button w3-pink">Add To Cart</button></a></p>
+    <c:url value="/cart/addtocart?productId=${product.productId}" var="des"></c:url>
+  <br><br><br><p><a href="${des}"><button class="w3-button w3-pink">Add To Cart</button></a></p>
   </c:if>
-  <p><a href="afterlogin"><button align="left" class="w3-button w3-purple">Go Back</button></a></p> 
+   <c:url value="/home" var="after"></c:url>
+  <p><a href="${after}"><button align="left" class="w3-button w3-purple">Go Back</button></a></p> 
+  
 </div>
+
 </div>
 </body>
 </html>

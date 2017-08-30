@@ -12,7 +12,7 @@ public interface BillingaddressDAO {
 	
 	public Billingaddress getByBillingAddress(String billingaddress);	
 	
-    public Billingaddress getByContactNumber(int contactnumber);
+    public Billingaddress getByContactNumber(String contactnumber);
     
 	public void saveOrUpdate(Billingaddress billingaddress);
 		

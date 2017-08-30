@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">
 div.gallery {
-    margin: 10px;
+    margin: 40px;
     border: 5px solid #ccc;
     float: left;
     width: 250px;
@@ -39,8 +39,10 @@ div.desc {
   <div class="desc"><ul style="list-style-type:none">
   <li class="span2"><h5 style="color: blue" >${product.productName}</h5>
   <h6>Price:${product.price}</h6></li></ul></div>
-  <a class="btn btn-primary" href="productDescription" role="button">Moredetails</a>
+  <c:url value="/productDescription/${product.productId}" var="url"></c:url>
+  <a class="btn btn-primary" href="${url}" role="button">Moredetails</a>
 </div>
+
 
 </c:forEach>
 </body>

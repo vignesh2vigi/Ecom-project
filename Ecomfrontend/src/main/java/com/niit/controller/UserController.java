@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.niit.Ecombackend.Dao.BillingaddressDAO;
 import com.niit.Ecombackend.Dao.RoleDAO;
 import com.niit.Ecombackend.Dao.ShippingaddressDAO;
 import com.niit.Ecombackend.Dao.UserDAO;
+import com.niit.Ecombackend.Model.Billingaddress;
 import com.niit.Ecombackend.Model.Role;
 import com.niit.Ecombackend.Model.Shippingaddress;
+
 import com.niit.Ecombackend.Model.User;
 
 @Controller
@@ -28,6 +31,8 @@ public class UserController {
 	@Autowired
 	private Role role;
 	
+	@Autowired
+	private BillingaddressDAO billingDAO;
 	@Autowired
 	private ShippingaddressDAO shippingDAO;
 
@@ -48,10 +53,18 @@ public class UserController {
 		shipping.setUser(user);
 		shipping.setUserName(user.getUserName());
 		shipping.setZipcode(user.getZipcode());
+		Billingaddress billing=new Billingaddress();
+		billing.setAddress(user.getAddress());
+		billing.setContactNumber(user.getContactNumber());
+		billing.setEmailId(user.getEmailId());
+		billing.setUserName(user.getUserName());
+		billing.setZipcode(user.getZipcode());
         System.out.println("hi");
-		userDAO.saveOrUpdate(user);
+		
 		roleDAO.saveOrUpdate(role);
 		shippingDAO.saveOrUpdate(shipping);
+		billingDAO.saveOrUpdate(billing);
+		userDAO.saveOrUpdate(user);
 		System.out.println("hi");
 
 		ModelAndView mv = new ModelAndView("home");

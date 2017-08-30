@@ -37,7 +37,7 @@ public class ShippingaddressController {
 	@RequestMapping("shippingaddressPage")
 	public ModelAndView newShippingaddress(){
 		
-		ModelAndView mv = new ModelAndView("shippingaddress");
+		ModelAndView mv = new ModelAndView("home");
 		mv.addObject("newShippingaddressClicked", "true");
 		return mv;
 	}
@@ -52,20 +52,21 @@ public class ShippingaddressController {
 		
 	}
 	
-	@RequestMapping("proceed")
+	@RequestMapping("/cart/proceed")
 	public String Proceed(Principal p, Model model){
 		String email = 	p.getName();
 		List<Shippingaddress> shippingList = shippingaddressDAO.list(email);
 		model.addAttribute("shippingList", shippingList);
+		System.out.println(shippingList.size());
 		model.addAttribute("viewShippingAddressClicked", true);
-	 return "shippingaddressPage";
+	 return "home";
 	}
 	@RequestMapping("shippingAddress")
 	public String shippingAddress(@RequestParam("shippingId") int shippingId, Principal p, Model model){
 		
 		String email = p.getName();
 		
-		/*cartDAO.updateshipping(email, shippingId);*/
+		cartDAO.updateshipping(email, shippingId);
 		model.addAttribute("thankyouPage", true);
 		
 		List<Cart> cartList = cartDAO.getByEmailId(email);
@@ -75,7 +76,7 @@ public class ShippingaddressController {
 			cartDAO.saveOrUpdate(c);
 		}
 		
-		return "UserLogin";
+		return "user";
 		
 	}
 	@RequestMapping("deleteshippingAddress")
@@ -89,7 +90,7 @@ public class ShippingaddressController {
 	Shippingaddress shippingaddress=	shippingaddressDAO.getByShippingId(shippingId);
 		model.addAttribute("shippingaddress", shippingaddress);
 		model.addAttribute("editShippingAddressClicked", true);
-		return "UserLogin";
+		return "user";
 		
 	}
 	@RequestMapping("editShippingaddress")

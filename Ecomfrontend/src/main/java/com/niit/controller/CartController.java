@@ -3,18 +3,25 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.niit.Ecombackend.Dao.BillingaddressDAO;
 import com.niit.Ecombackend.Dao.CartDAO;
 import com.niit.Ecombackend.Dao.ProductDAO;
+import com.niit.Ecombackend.Dao.ShippingaddressDAO;
 import com.niit.Ecombackend.Dao.UserDAO;
+import com.niit.Ecombackend.Model.Billingaddress;
 import com.niit.Ecombackend.Model.Cart;
 import com.niit.Ecombackend.Model.Product;
+import com.niit.Ecombackend.Model.Shippingaddress;
 import com.niit.Ecombackend.Model.User;
 
 @Controller
@@ -33,11 +40,17 @@ public class CartController {
 	@Autowired
 	private Cart cart;
 	
-	@RequestMapping("myCart")
-	public String myCart(Model model, Principal p){
+	@Autowired
+	private BillingaddressDAO billingDAO;
+	@Autowired
+	private ShippingaddressDAO shippingDAO;
+	
+	@RequestMapping("/cart/myCart")
+	public String myCart(Model model, Principal p,HttpSession session){
 	String email =	p.getName();
 	User user = userDAO.getByEmailId(email);
 	 List<Cart> cartList = cartDAO.getByEmailId(email);
+	 session.setAttribute("noOfItem", cartList.size());
 	Long GrandTotal = cartDAO.getTotalAmount(user.getUserId());
 	
 	
@@ -50,7 +63,7 @@ public class CartController {
 		
 	}
 	
-	@RequestMapping("addtocart")
+	@RequestMapping("/cart/addtocart")
 	public String addCart(@RequestParam("productId") int productId, Principal p, Model model){
 		System.out.println("Hi");
 
@@ -89,13 +102,13 @@ public class CartController {
 		
 		productDAO.saveOrUpdate(product);
 			
-		return "redirect:myCart";
+		return "redirect:/cart/myCart";
 		}
 		else {
 			model.addAttribute("product", product);
 			model.addAttribute("productDescClicked", true);
 			model.addAttribute("message", "Out of stock");
-			return "mycart";
+			return "redirect:/cart/myCart";
 		}
 		
 		
@@ -118,6 +131,32 @@ public class CartController {
 	@ModelAttribute
 	public void commonToUser(Model model){
 		model.addAttribute("userLoggedIn", "true");
+	}
+	@RequestMapping("order/{shippingid}")
+	public String order(@PathVariable("shippingid") int id,Principal p, Model model){
+		
+		User user = userDAO.getByEmailId(p.getName());
+		String emailid=user.getEmailId();
+		List<Cart> listcart=cartDAO.getByEmailId(emailid);
+		Billingaddress billing=billingDAO.getByContactNumber(user.getContactNumber());
+		Shippingaddress shipping=shippingDAO.getByShippingId(id);
+		model.addAttribute("shipping",shipping);
+		model.addAttribute("billing",billing);
+		model.addAttribute("user", user);
+		model.addAttribute("i",listcart);
+		model.addAttribute("isuserclickedcash",true);
+		System.out.println(listcart.size());
+		return "home";
+	}
+	@RequestMapping("payment")
+	public String payment( Model model) {
+		model.addAttribute("isuserclickeddeliverhere",true);
+		return "home";
+	}
+	@RequestMapping("card")
+	public String card( Model model) {
+		model.addAttribute("isuserclickedcard",true);
+		return "home";
 	}
 }
 	

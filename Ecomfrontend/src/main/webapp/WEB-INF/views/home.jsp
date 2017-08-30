@@ -40,14 +40,27 @@
 <c:when test="${isUserClickedViewSupplier == 'true' }">
 <%@ include file="viewsupplier.jsp" %>
 </c:when>
-<c:when test="${isUserClickedCart == 'true' }">
-<%@ include file="cart.jsp" %>
+<c:when test="${myCartClicked == 'true' }">
+<%@ include file="mycart.jsp" %>
 </c:when>
-<c:when test="${isUserClickedViewCart == 'true' }">
-<%@ include file="viewcart.jsp" %>
-</c:when>
+
 <c:when test="${isUserClickedMoredetails == 'true' }">
 <%@ include file="productDescription.jsp" %>
+</c:when>
+<c:when test="${newShippingaddressClicked == 'true' }">
+<%@ include file="NewShippingaddress.jsp" %>
+</c:when>
+<c:when test="${isuserclickedcash == 'true' }">
+<%@ include file="order.jsp" %>
+</c:when>
+<c:when test="${viewShippingAddressClicked  == 'true' }">
+<%@ include file="shippingaddress.jsp" %>
+</c:when>
+<c:when test="${isuserclickeddeliverhere  == 'true' }">
+<%@ include file="payment.jsp" %>
+</c:when>
+<c:when test="${isuserclickedcard  == 'true' }">
+<%@ include file="card.jsp" %>
 </c:when>
 <c:otherwise>
 <%@ include file="carousel.jsp" %>

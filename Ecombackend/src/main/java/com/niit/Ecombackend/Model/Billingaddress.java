@@ -16,10 +16,10 @@ public class Billingaddress {
 	@GeneratedValue
 	private int billId;
 
-	private int userId;
+	
 	private String emailId;
 	private String userName;
-	private int contactNumber;
+	private String contactNumber;
 	private String address;
 	private int zipcode;
 	
@@ -30,12 +30,7 @@ public class Billingaddress {
 	public void setBillId(int billId) {
 		this.billId = billId;
 	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+	
 	public String getEmailId() {
 		return emailId;
 	}
@@ -48,10 +43,11 @@ public class Billingaddress {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public int getContactNumber() {
+	
+	public String getContactNumber() {
 		return contactNumber;
 	}
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 	public String getAddress() {
