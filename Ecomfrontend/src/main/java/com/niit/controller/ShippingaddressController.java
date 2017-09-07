@@ -34,22 +34,12 @@ public class ShippingaddressController {
 	@Autowired
 	private Cart cart;
 
-	@RequestMapping("shippingaddressPage")
+	@RequestMapping("/cart/shippingaddressPage")
 	public ModelAndView newShippingaddress(){
 		
 		ModelAndView mv = new ModelAndView("home");
 		mv.addObject("newShippingaddressClicked", "true");
 		return mv;
-	}
-	@RequestMapping("addShippingaddress")
-	public String addShippingaddress(Principal p, @ModelAttribute Shippingaddress shippingaddress){
-		String email = p.getName();
-		User user = userDAO.getByEmailId(email);
-		shippingaddress.setUser(user);
-		shippingaddress.setEmailId(email);
-		shippingaddressDAO.saveOrUpdate(shippingaddress);
-		return "redirect:proceed";
-		
 	}
 	
 	@RequestMapping("/cart/proceed")
@@ -61,53 +51,21 @@ public class ShippingaddressController {
 		model.addAttribute("viewShippingAddressClicked", true);
 	 return "home";
 	}
-	@RequestMapping("shippingAddress")
-	public String shippingAddress(@RequestParam("shippingId") int shippingId, Principal p, Model model){
-		
-		String email = p.getName();
-		
-		cartDAO.updateshipping(email, shippingId);
-		model.addAttribute("thankyouPage", true);
-		
-		List<Cart> cartList = cartDAO.getByEmailId(email);
-		
-		for(Cart c : cartList){
-			c.setShippingId(shippingId);
-			cartDAO.saveOrUpdate(c);
-		}
-		
-		return "user";
-		
-	}
-	@RequestMapping("deleteshippingAddress")
+	
+	@RequestMapping("/cart/deleteshippingAddress")
 	public String deleteshippingAddress(@RequestParam("shippingId") int shippingId, Model model){
 		shippingaddressDAO.delete(shippingId);
 		return "redirect:proceed";
 		
 	}
-	@RequestMapping("editshippingAddress")
+	@RequestMapping("/cart/editshippingaddress")
 	public String editshippingAddress(@RequestParam("shippingId")int shippingId,Model model){
 	Shippingaddress shippingaddress=	shippingaddressDAO.getByShippingId(shippingId);
 		model.addAttribute("shippingaddress", shippingaddress);
-		model.addAttribute("editShippingAddressClicked", true);
-		return "user";
+		model.addAttribute("newShippingaddressClicked", true);
+		return "home";
 		
-	}
-	@RequestMapping("editShippingaddress")
-	public String editShippingAddress(Principal p, @ModelAttribute Shippingaddress shippingaddress, Model model){
-		
-		String email = p.getName();
-		User user = userDAO.getByEmailId(email);
-		
-		shippingaddress.setEmailId(email);
-		shippingaddress.setUser(user);
-		
-		shippingaddressDAO.saveOrUpdate(shippingaddress);
-		return "redirect:proceed";
 	}
 	
-	@ModelAttribute
-	public void commonToUser(Model model){
-		model.addAttribute("userLoggedIn", "true");
-	}
+	
 }

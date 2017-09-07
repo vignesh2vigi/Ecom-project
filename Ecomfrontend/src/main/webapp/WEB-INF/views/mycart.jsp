@@ -23,6 +23,7 @@ th {
 </style>
 </head>
 <body>
+<c:if test="${noOfItem > 0}">
 <form action="proceed" method="post" class="form-horizontal">
 <div id="page">
 		<table style="width: 100%">
@@ -59,11 +60,17 @@ th {
 		</table>
 		</div>
 		<p>
-			<a href="proceed"><button align="left"
+		 <c:url value="/cart/proceed" var="pro"></c:url>
+			<a href="${pro}"><button align="left"
 					class="w3-button w3-#009933">Proceed</button></a>
 		</p>
 		</form>
+		</c:if>
+		<c:if test="${noOfItem == 0 }">
+		<p>ur cart is empty</p>
+		</c:if>
 </body>
+
 
 </body>
 </html>

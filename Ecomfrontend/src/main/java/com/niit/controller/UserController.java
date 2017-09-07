@@ -71,11 +71,5 @@ public class UserController {
 
 		return mv;
 	}
-	@RequestMapping("viewuser")
-	public String viewuser(Model model) {
-		List<User> userList = userDAO.list();
-		model.addAttribute("userList", userList);
-		model.addAttribute("isUserClickedViewUser", true);
-			return "home";
-		}
+	
 }

@@ -48,7 +48,7 @@
     				</address>
     			</div>
     		</div>
-    		<div class="row">
+    		<!-- <div class="row">
     			<div class="col-xs-6">
     				<address>
     					<strong>Payment Method:</strong><br>
@@ -64,7 +64,7 @@
     			</div>
     		</div>
     	</div>
-    </div>
+    </div> -->
     
     <div class="row">
     	<div class="col-md-12">
@@ -94,12 +94,21 @@
 			                        <td class="text-right">${cartitem.total}</td>
 			                        </tr>
 			                      </c:forEach>
-    							
-						</tbody>
+			                     
+    							</tbody>
     					</table>
+    					
+    </div>
     				</div>
     			</div>
     		</div>
     	</div>
     </div>
 </div>
+<c:url value="/thankyou" var="pr"></c:url>
+			<a href="${pr}"><button align="left"
+					class="w3-button w3-#009933">Ok</button></a>
+</div>
+
+
+</body></html>

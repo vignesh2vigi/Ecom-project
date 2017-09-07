@@ -224,10 +224,9 @@ Below is the form for the confirm order table
 				placeholder="MM-YY">
 			<label for="cardCVC">CV CODE</label>
 			<input type="text" size="3" id="cvc" name="cardCVC" placeholder="CVC">
-
-			<br>
-			<input type="submit" class="blueButton" style="float: right;"
-				value="Confirm Paymet">
+<br>
+			<c:url value="/thankyou" var="urlo"></c:url>
+			<a href="${urlo}" class="btn btn-success">NEXT</a>
 			<br>
 			<br>
 	</form>

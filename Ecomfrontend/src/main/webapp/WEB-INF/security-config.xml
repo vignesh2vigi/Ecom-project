@@ -20,14 +20,13 @@
 	
      
         <security:form-login    login-page="/loginpage"
-        	
         	login-processing-url="/isvaliduser"
         	default-target-url="/home"
         	authentication-failure-url="/loginpage?error"
             username-parameter="emailId"
             password-parameter="password" />
         <security:logout
-            logout-success-url="/loginpage?logout" logout-url="/j_spring_security_logout" />
+            logout-success-url="/home?logout" logout-url="/j_spring_security_logout" />
             <security:csrf disabled="true"/>
     </security:http> 
     

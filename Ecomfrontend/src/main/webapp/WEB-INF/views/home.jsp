@@ -10,12 +10,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <%@ include file="navbar.jsp" %>
-
-
-    <c:choose>
+<c:choose>
  <c:when test="${isUserClickedRegister == 'true' }">
 <%@ include file="user.jsp" %>
 </c:when>
@@ -43,7 +42,6 @@
 <c:when test="${myCartClicked == 'true' }">
 <%@ include file="mycart.jsp" %>
 </c:when>
-
 <c:when test="${isUserClickedMoredetails == 'true' }">
 <%@ include file="productDescription.jsp" %>
 </c:when>
@@ -62,13 +60,15 @@
 <c:when test="${isuserclickedcard  == 'true' }">
 <%@ include file="card.jsp" %>
 </c:when>
+<c:when test="${isuserclickedthank  == 'true' }">
+<%@ include file="thankyou.jsp" %>
+</c:when>
 <c:otherwise>
 <%@ include file="carousel.jsp" %>
 <%@ include file="productlist.jsp" %>
 </c:otherwise> 
-
 </c:choose>
-    
-</body>
+<%@ include file="footer.jsp" %>
+    </body>
 </html>
 

@@ -20,7 +20,7 @@
 <a href="deleteshippingAddress?shippingId=${shipping.shippingId}">
 <span style="float: right;margin-right:1em;" class="glyphicon glyphicon-trash"></span> 
 </a>
-<a href="editshippingAddress?shippingId=${shipping.shippingId }">
+<a href="editshippingaddress?shippingId=${shipping.shippingId }">
 <span style="float: right; margin-right:1em;"class="glyphicon glyphicon-pencil"></span>
 </a>
 
@@ -33,7 +33,7 @@ Address:${shipping.address}<br>
 Zipcode:${shipping.zipcode}
 
 <br><br><button >
-<c:url value="/payment" var="urlpay"></c:url>
+<c:url value="/payment/${shipping.shippingId}" var="urlpay"></c:url>
 <a href="${urlpay}">DeliverHere</a></button><br><br>
 </div>
 </c:forEach>

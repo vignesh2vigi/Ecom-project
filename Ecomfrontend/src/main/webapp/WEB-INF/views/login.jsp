@@ -3,6 +3,12 @@
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+body{
+font-family: 'Lato', sans-seif;
+color: black;
+background-color:#cfd8ee;
+}</style>
 <head>
   <title>Login</title>
   <meta charset="utf-8">
@@ -26,7 +32,11 @@
         <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
       </div>
     </div>
-   
+    
+   <c:if test="${not empty error}">
+				<div class="error"><b>${error}</b></div>
+	 			</c:if> 
+				<b>${message}</b>
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default">Submit</button>

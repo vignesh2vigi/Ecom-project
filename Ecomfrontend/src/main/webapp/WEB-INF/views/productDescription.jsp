@@ -15,14 +15,18 @@
     right: 650px;
     width: 300px;
     padding: 10px;
+} 
+          
+    
 }
 </style>
 </head>
 <body>
 
 <br><br> 
-<c:url value="/resource/product/${product.productId}.jpg" var="url"></c:url>
-<img src="${url}" alt="${product.productId}" width="250" height="350" align="left">
+<div class="container" align="right" >
+<c:url value="/resource/product" var="url" />
+<img src="${url}/${product.productId}.png" alt="${product.productId}" width="250" height="350" align="left">
  
  
  <div class="right">
@@ -32,18 +36,18 @@
   <h6 style="color: #99003d">Price: ${product.price}</h6></li></ul>
  <span style="color: red;"> ${message}</span>
   <div class="w3-container">
-    <c:if test="${pageContext.request.userPrincipal.name == null }">
-  <p><a href="loginPage"><button class="w3-button w3-pink">Add To Cart</button></a></p>
-  </c:if>
-    <c:if test="${pageContext.request.userPrincipal.name != null }">
+    
+   
     <c:url value="/cart/addtocart?productId=${product.productId}" var="des"></c:url>
-  <br><br><br><p><a href="${des}"><button class="w3-button w3-pink">Add To Cart</button></a></p>
-  </c:if>
+  <br><br><br>
+  <p><a href="${des}"><button class="w3-button w3-pink">Add To Cart</button></a></p>
+  
+ 
    <c:url value="/home" var="after"></c:url>
   <p><a href="${after}"><button align="left" class="w3-button w3-purple">Go Back</button></a></p> 
   
 </div>
-
+</div>
 </div>
 </body>
 </html>

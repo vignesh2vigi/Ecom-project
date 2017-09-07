@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,29 +76,37 @@ function isAlphabet(elem, helperMsg) {
 }
 </script>
 <div class="container">
+<c:if test="${shippingaddress.shippingId > 0}">
   <form action="addShippingaddress" method="post" onsubmit="return formAddress()" class="form-horizontal">
+    <div class="form-group">
+     
+      <div class="col-sm-10">
+        <input type="hidden" name="shippingId" class="form-control" id="shippingId" value="${shippingaddress.shippingId}">
+      </div>
+    </div>
+    </c:if>
     <div class="form-group">
       <label class="control-label col-sm-2" for="UserName"> User Name:</label>
       <div class="col-sm-10">
-        <input type="text" name="userName" class="form-control" id="userName" placeholder="Enter User Name">
+        <input type="text" name="userName" class="form-control" id="userName" value="${shippingaddress.userName}">
       </div>
     </div>
      <div class="form-group">
       <label class="control-label col-sm-2" for="contactNumber">Contact Number:</label>
       <div class="col-sm-10">
-        <input type="text" name="contactNumber" class="form-control" id="contactNumber" placeholder="Enter Contact Number">
+        <input type="text" name="contactNumber" class="form-control" id="contactNumber" value="${shippingaddress.contactNumber}">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">Shipping Address:</label>
       <div class="col-sm-10">          
-        <input type="text" name="address" class="form-control" id="address" placeholder="Enter Shipping Address">
+        <input type="text" name="address" class="form-control" id="address" value="${shippingaddress.address}">
       </div>
     </div>
      <div class="form-group">
       <label class="control-label col-sm-2" for="zipcode"> Zipcode:</label>
       <div class="col-sm-10">
-        <input type="text" name="zipcode" class="form-control" id="zipcode" placeholder="Enter User Name">
+        <input type="text" name="zipcode" class="form-control" id="zipcode" value="${shippingaddress.zipcode}">
       </div>
     </div>
     <div class="form-group">        

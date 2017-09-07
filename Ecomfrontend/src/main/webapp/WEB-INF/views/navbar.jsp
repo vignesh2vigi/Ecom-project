@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    
     
 <!DOCTYPE html>
 <html lang="en">
@@ -66,28 +66,25 @@
   <div class="container-fluid">
   
     <div class="navbar-header">
-    <input type="image" src="resource/renault/duster/duster 1.jpg" height="72" width="99">
+    <input type="image" src="resource/images/duster1.jpg" height="72" width="99">
     </div>
     <ul class="nav navbar-nav">
      <a class="navbar-brand" href="#">Carsale</a>
      <c:url value="/home" var="urlh"></c:url>
-      <li class="active"><a href="${urlh }">Home</a></li>
-      <!-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">category type<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="renault">Renault</a></li>
-          <li><a href="#">MaruthiSuzuki</a></li>
-          <li><a href="#">Tata</a></li>
-        </ul>
-      </li> -->
+      <li class="active"><a href="${urlh }">HOME</a></li>
+      <li><c:if 
+      test="${pageContext.request.userPrincipal.name!=null}">
+      <a href="">LOGGED IN ${pageContext.request.userPrincipal.name}</a></c:if>
+      </li>
        <security:authorize access="hasRole('ROLE_ADMIN')">
-       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Category<span class="caret"></span></a>
+       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">CATEGORY<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="${caturl}/addcategory">ADD</a></li>
           <li><a href="${caturl}/viewcategory">VIEW</a></li>
         </ul>
       </li>
       </security:authorize>
-     </ul>
+     
      <ul class="nav navbar-nav navbar-right">
      
    
@@ -109,26 +106,22 @@
       </security:authorize>
     
       <c:if test="${pageContext.request.userPrincipal.name == null }">
-      <li><a href="user"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+      <c:url value="/user" var="us"></c:url>
+      <li><a href="${us}"><span class="glyphicon glyphicon-user"></span>REGISTER</a></li>
       <c:url value="/loginpage" var="urllog"></c:url>
-           <li><a href="${urllog}">Login</a></li>
+           <li><a href="${urllog}">LOGIN</a></li>
            </c:if>
         <c:url value="/j_spring_security_logout" var="logout"></c:url>
         
         <c:if test="${pageContext.request.userPrincipal.name != null }">
          <security:authorize access="hasRole('ROLE_USER')">
-         <c:url value="myCart" var="cart"></c:url>
-        <li><a href="${cart}">cart(${sessionScope.noOfItem})</a></li>
+         <c:url value="/cart/myCart" var="cart"></c:url>
+        <li><a href="${cart}">CART(${sessionScope.noOfItem})</a></li>
          </security:authorize>
-        <li><a href="${logout}">Logout</a></li>
+        <li><a href="${logout}">LOGOUT</a></li>
         </c:if>
-       
-       
-          
-       
+       </ul>
       </ul>
-      
-    </ul>
     
   </div>
 </nav> 

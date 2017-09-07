@@ -56,7 +56,7 @@ public class CategoryController {
 		return "editcategory";
 		
 	}
-	@RequestMapping("categoryEdited")
+	@RequestMapping("/admin/category/categoryEdited")
 	public String categoryEdited(@ModelAttribute Category category) {
 		categoryDAO.saveOrUpdate(category);
 		return "redirect:viewcategory";

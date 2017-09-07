@@ -17,6 +17,7 @@ import com.niit.Ecombackend.Dao.CartDAO;
 import com.niit.Ecombackend.Dao.ProductDAO;
 import com.niit.Ecombackend.Model.Cart;
 import com.niit.Ecombackend.Model.Product;
+import com.niit.exeption.ProductNotFoundException;
 
 
 @Controller
@@ -57,27 +58,7 @@ public ModelAndView home(HttpSession session ) {
 		mv.addObject("isUserClickedLogin", true);
 		return mv;
 	}
-	@RequestMapping("category")
-	public ModelAndView Category() {
-
-		ModelAndView mv = new ModelAndView("home");
-		mv.addObject("isUserClickedCategory", "true");
-		return mv;
-	}
-	/*@RequestMapping("product")
-	public ModelAndView Product() {
-
-		ModelAndView mv = new ModelAndView("home");
-		mv.addObject("isUserClickedProduct", "true");
-		return mv;
-	}*/
-	@RequestMapping("supplier")
-	public ModelAndView Supplier() {
-
-		ModelAndView mv = new ModelAndView("home");
-		mv.addObject("isUserClickedSupplier", "true");
-		return mv;
-	}
+	
 	@RequestMapping("user")
 	public ModelAndView User() {
 
@@ -86,10 +67,12 @@ public ModelAndView home(HttpSession session ) {
 		return mv;
 	}
 	@RequestMapping("/productDescription/{productid}")
-	public ModelAndView ProductDescription(@PathVariable("productid") int productid) {
+	public ModelAndView ProductDescription(@PathVariable("productid") int productid) throws ProductNotFoundException {
+		
 
 		ModelAndView mv = new ModelAndView("home");
 		Product product=productDAO.getByProductId(productid);
+		if(product==null) throw new ProductNotFoundException();
 		mv.addObject("product",product);
 		mv.addObject("isUserClickedMoredetails", "true");
 		return mv;

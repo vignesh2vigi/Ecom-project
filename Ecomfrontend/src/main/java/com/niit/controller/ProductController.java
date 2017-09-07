@@ -54,7 +54,7 @@ public class ProductController {
 
 		String path = "F:\\Ecomfrontend\\src\\main\\webapp\\WEB-INF\\resource\\product\\";
 
-		String fileinfo = path + Product.getProductId() + ".jpg";
+		String fileinfo = path + Product.getProductId() + ".png";
 
 		File f = new File(fileinfo);
 
@@ -104,7 +104,7 @@ public class ProductController {
 		return "editproduct";
 	
 	}
-	@RequestMapping("productEdited")
+	@RequestMapping("/admin/product/productEdited")
 	public String productEdited(@ModelAttribute Product product) {
 		productDAO.saveOrUpdate(product);
 		return "redirect:viewproduct";

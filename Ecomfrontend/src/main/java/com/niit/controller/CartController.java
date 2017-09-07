@@ -45,28 +45,21 @@ public class CartController {
 	@Autowired
 	private ShippingaddressDAO shippingDAO;
 	
-	@RequestMapping("/cart/myCart")
+	@RequestMapping("cart/myCart")
 	public String myCart(Model model, Principal p,HttpSession session){
 	String email =	p.getName();
 	User user = userDAO.getByEmailId(email);
 	 List<Cart> cartList = cartDAO.getByEmailId(email);
 	 session.setAttribute("noOfItem", cartList.size());
 	Long GrandTotal = cartDAO.getTotalAmount(user.getUserId());
-	
-	
 	 model.addAttribute("cartList", cartList);
 	 model.addAttribute("myCartClicked", true);
 	 model.addAttribute("GrandTotal", GrandTotal);
 		
 		return "home";
-		
-		
-	}
-	
+		}
 	@RequestMapping("/cart/addtocart")
 	public String addCart(@RequestParam("productId") int productId, Principal p, Model model){
-		System.out.println("Hi");
-
 		Product product = productDAO.getByProductId(productId);		
 		User user = userDAO.getByEmailId(p.getName());		
 		Cart crt = cartDAO.getByUserandProduct(p.getName(), productId);
@@ -105,16 +98,14 @@ public class CartController {
 		return "redirect:/cart/myCart";
 		}
 		else {
-			model.addAttribute("product", product);
-			model.addAttribute("productDescClicked", true);
-			model.addAttribute("message", "Out of stock");
+			
 			return "redirect:/cart/myCart";
 		}
 		
 		
 	}
 
-	@RequestMapping("removeCart")
+	@RequestMapping("/cart/removeCart")
 	public String removeCart(@RequestParam("cartId") int cartId, Model model){
 		Cart cart = cartDAO.getByCartId(cartId);
 		Product product = productDAO.getByProductId(cart.getProductId());
@@ -132,7 +123,7 @@ public class CartController {
 	public void commonToUser(Model model){
 		model.addAttribute("userLoggedIn", "true");
 	}
-	@RequestMapping("order/{shippingid}")
+	@RequestMapping("/order/{shippingid}")
 	public String order(@PathVariable("shippingid") int id,Principal p, Model model){
 		
 		User user = userDAO.getByEmailId(p.getName());
@@ -148,14 +139,20 @@ public class CartController {
 		System.out.println(listcart.size());
 		return "home";
 	}
-	@RequestMapping("payment")
-	public String payment( Model model) {
+	@RequestMapping("/payment/{shippingId}")
+	public String payment( Model model, @PathVariable("shippingId")int shippingId,Principal p) {
+		model.addAttribute("shippingId",shippingId);
 		model.addAttribute("isuserclickeddeliverhere",true);
 		return "home";
 	}
-	@RequestMapping("card")
+	@RequestMapping("/card")
 	public String card( Model model) {
 		model.addAttribute("isuserclickedcard",true);
+		return "home";
+	}
+	@RequestMapping("/thankyou")
+	public String thankyou( Model model) {
+		model.addAttribute("isuserclickedthank",true);
 		return "home";
 	}
 }
